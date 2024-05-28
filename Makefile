@@ -10,7 +10,7 @@ PHONY: help
 help: ## This help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-init: down build install up success-message console ## Initialize environment
+init: down build install up success-message ## Initialize environment
 
 build: ## Build services.
 	${DC} build $(c)
@@ -34,6 +34,12 @@ console: ## Login in console.
 
 install:
 	${DC_RUN} composer install
+
+migrate: ## Execute migrations.
+	${DC_EXEC} php bin/console d:m:m -n
+
+fixtures: ## Load fixtures into the database.
+	${DC_EXEC} php bin/console doctrine:fixtures:load -n
 
 success-message:
 	@echo "You can now access the application at http://localhost:8337"
