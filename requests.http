@@ -5,6 +5,28 @@ Content-Type: application/json
 
 {
   "product": 1,
+  "taxNumber": "FU123456789",
+  "couponCode": "P10"
+}
+
+### Calculate Price
+POST http://127.0.0.1:8337/calculate-price
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 3,
+  "taxNumber": "FU123456789",
+  "couponCode": "F200"
+}
+
+### Calculate Price
+POST http://127.0.0.1:8337/calculate-price
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 3,
   "taxNumber": "FU123456789"
 }
 

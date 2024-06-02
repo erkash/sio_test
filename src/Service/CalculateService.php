@@ -16,21 +16,24 @@ class CalculateService
     public function getFinalPrice(
         Product $product,
         TaxNumber $taxNumber,
-        ?Coupon $coupon
+        ?Coupon $coupon = null
     ): float|int|null {
-        $finalPrice = $product->getPrice() + ($product->getPrice() * $taxNumber->getPercent() / 100);
 
         if ($coupon) {
+            $price = $product->getPrice();
+
             switch ($coupon->getType()) {
                 case CouponTypeEnum::FIXED->value:
-                    $finalPrice -= $coupon->getDiscount();
+                    $price = $product->getPrice() - $coupon->getDiscount();
                     break;
                 case CouponTypeEnum::PERCENT->value:
-                    $finalPrice -= $finalPrice * $coupon->getDiscount() / 100;
+                    $price = $product->getPrice() - ($product->getPrice()  * $coupon->getDiscount() / 100);
                     break;
             }
+
+            return $price + ($price * $taxNumber->getPercent() / 100);
         }
 
-        return $finalPrice;
+        return $product->getPrice() + ($product->getPrice() * $taxNumber->getPercent() / 100);
     }
 }

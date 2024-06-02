@@ -41,6 +41,9 @@ migrate: ## Execute migrations.
 fixtures: ## Load fixtures into the database.
 	${DC_EXEC} php bin/console doctrine:fixtures:load -n
 
+test:
+	${DC_RUN} php bin/phpunit
+
 success-message:
 	@echo "You can now access the application at http://localhost:8337"
 	@echo "Good luck! 🚀"

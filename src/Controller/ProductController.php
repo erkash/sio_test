@@ -40,7 +40,7 @@ class ProductController extends AbstractController
 
             $taxNumber = new TaxNumber($request->taxNumber);
             if (!$taxNumber->isValid()) {
-                throw new InvalidTaxNumberException();
+                throw new InvalidTaxNumberException('Invalid tax number');
             }
 
             $coupon = $couponRepository->findOneBy(['code' => $request->couponCode]);
